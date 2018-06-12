@@ -1,0 +1,10 @@
+br/edu/infnet/av1_web/av1_web/model/Funcionario.class
+br/edu/infnet/av1_web/av1_web/model/Pedido.class
+br/edu/infnet/av1_web/av1_web/model/Produto.class
+br/edu/infnet/av1_web/av1_web/model/Endereco.class
+br/edu/infnet/av1_web/av1_web/model/ProdutoPedido.class
+br/edu/infnet/av1_web/av1_web/model/Categoria.class
+br/edu/infnet/av1_web/av1_web/model/Pessoa.class
+br/edu/infnet/av1_web/av1_web/model/Cliente.class
+br/edu/infnet/av1_web/av1_web/model/Ingrediente.class
+br/edu/infnet/av1_web/av1_web/model/StatusPedido.class
