@@ -1,5 +1,6 @@
-package br.edu.infnet.av1_web.util;
+package br.edu.infnet.av1_web.run;
 
+import br.edu.infnet.av1_web.util.JpaUtil;
 import javax.persistence.EntityManager;
 
 public class CriaTabelas {
