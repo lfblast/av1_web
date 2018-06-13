@@ -23,9 +23,21 @@ public abstract class GenericRepository<T> {
         manager.close();
     }
     
-    public abstract void incluir(T t);
-    public abstract void alterar(T t);    
-    public abstract void excluir(T t);
-    public abstract T selecionar(Long id);
+    public void incluir(T t) {
+        manager.persist(t);
+    }
+    
+    public void alterar(T t) {
+        manager.merge(t);        
+    }
+    
+    public void excluir(T t) {
+        manager.remove(t);
+    }
+    
+    public T selecionar(Class<T> clazz, long id) {
+        return manager.find(clazz, id);
+    }
+    
     public abstract List<T> Listar();
 }
