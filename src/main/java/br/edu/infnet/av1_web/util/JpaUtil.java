@@ -8,11 +8,10 @@ public class JpaUtil {
 
     private static EntityManagerFactory factory;
 
-    static {
-        factory = Persistence.createEntityManagerFactory("av1PU");
-    }
-
     public static EntityManager getEntityManager() {
+        if(factory == null) {
+            factory = Persistence.createEntityManagerFactory("av1PU");
+        }
         return factory.createEntityManager();
     }
     
