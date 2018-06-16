@@ -25,8 +25,7 @@ public class CadastroPedidoPersisteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        EntityManager em = JpaUtil.getEntityManager();
-        
+        EntityManager em = JpaUtil.getEntityManager();        
         PedidoService service = new PedidoService(em);
         PedidoForm form = PedidoForm.fromRequest(request);
         

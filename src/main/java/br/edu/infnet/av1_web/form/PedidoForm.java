@@ -40,6 +40,8 @@ public class PedidoForm {
     private String entrega;
     private String taxaEntrega;
     private String[] produtos;
+    private List<String> quantidadesProdutos;
+    private List<String> obsProdutos;
     
     public static PedidoForm fromRequest(HttpServletRequest request) {
         
@@ -163,5 +165,21 @@ public class PedidoForm {
 
     public void setProdutos(String[] produtos) {
         this.produtos = produtos;
+    }
+
+    public List<String> getQuantidadesProdutos() {
+        return quantidadesProdutos;
+    }
+
+    public void setQuantidadesProdutos(List<String> quantidadesProdutos) {
+        this.quantidadesProdutos = quantidadesProdutos;
+    }
+
+    public List<String> getObsProdutos() {
+        return obsProdutos;
+    }
+
+    public void setObsProdutos(List<String> obsProdutos) {
+        this.obsProdutos = obsProdutos;
     }
 }

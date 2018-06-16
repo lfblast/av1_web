@@ -50,7 +50,11 @@
                         <td>Produtos:</td>
                         <td>
                             <c:forEach items="${produtos}" var="produto">
-                                <input type="checkbox" name="produtos" value="${produto.id}"/>${produto.codigo} - ${produto.nome} - ${produto.preco} <br/>
+                                <input type="checkbox" name="produtos" value="${produto.id}"/>${produto.codigo} - ${produto.nome} - ${produto.preco} 
+                                &nbsp;&nbsp;&nbsp;
+                                Quant: <input type="text" name="quantidade${produto.id}" size="2" maxlength="2"/>
+                                Obs: <input type="text" name="obs${produto.id}" size="80" maxlength="80"/>
+                                <br/>
                             </c:forEach>
                         </td>
                     </tr>
