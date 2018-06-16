@@ -39,5 +39,5 @@ public abstract class GenericRepository<T> {
         return manager.find(clazz, id);
     }
     
-    public abstract List<T> Listar();
+    public abstract List<T> listar();
 }

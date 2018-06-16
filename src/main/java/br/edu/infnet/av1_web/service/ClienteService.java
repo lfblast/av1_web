@@ -15,7 +15,7 @@ public class ClienteService {
     }
     
     public List<Cliente> getListaClientes() {
-        List<Cliente> clientes = clienteRep.Listar();
+        List<Cliente> clientes = clienteRep.listar();
         return clientes;
     }
     

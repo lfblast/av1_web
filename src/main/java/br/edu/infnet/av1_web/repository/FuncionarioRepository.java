@@ -13,7 +13,7 @@ public class FuncionarioRepository extends GenericRepository<Funcionario> {
     }
 
     @Override
-    public List<Funcionario> Listar() {
+    public List<Funcionario> listar() {
         TypedQuery<Funcionario> query = manager.createQuery("select p from Funcionario p", Funcionario.class);
         return query.getResultList();
     }

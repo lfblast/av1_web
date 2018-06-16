@@ -31,6 +31,10 @@ public class Pedido {
     private List<ProdutoPedido> produtos;
     
     @ManyToOne
+    @JoinColumn(name="cliente_id", nullable=false)
+    private Cliente cliente;
+    
+    @ManyToOne
     @JoinColumn(name="endereco_id", nullable=false)
     private Endereco endereco;
     
@@ -73,6 +77,14 @@ public class Pedido {
 
     public void setProdutos(List<ProdutoPedido> produtos) {
         this.produtos = produtos;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Endereco getEndereco() {

@@ -13,7 +13,7 @@ public class IngredienteRepository extends GenericRepository<Ingrediente> {
     }
 
     @Override
-    public List<Ingrediente> Listar() {
+    public List<Ingrediente> listar() {
         TypedQuery<Ingrediente> query = manager.createQuery("select p from Ingrediente p", Ingrediente.class);
         return query.getResultList();
     }

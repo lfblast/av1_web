@@ -13,7 +13,7 @@ public class ClienteRepository extends GenericRepository<Cliente> {
     }
 
     @Override
-    public List<Cliente> Listar() {
+    public List<Cliente> listar() {
         TypedQuery<Cliente> query = manager.createQuery("select p from Cliente p", Cliente.class);
         return query.getResultList();
     }    

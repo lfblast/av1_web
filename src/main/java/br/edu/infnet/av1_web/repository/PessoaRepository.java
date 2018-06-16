@@ -13,7 +13,7 @@ public class PessoaRepository extends GenericRepository<Pessoa> {
     }
 
     @Override
-    public List<Pessoa> Listar() {
+    public List<Pessoa> listar() {
         TypedQuery<Pessoa> query = manager.createQuery("select p from Pessoa p", Pessoa.class);
         return query.getResultList();
     }

@@ -13,6 +13,9 @@ public class Cliente extends Pessoa {
     @OneToMany(mappedBy="cliente", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     private List<Endereco> enderecos;
     
+    @OneToMany(mappedBy="cliente", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    private List<Pedido> pedidos;
+    
     @Column(name="telefone")
     private int telefone;
 
@@ -22,6 +25,14 @@ public class Cliente extends Pessoa {
 
     public void setEnderecos(List<Endereco> enderecos) {
         this.enderecos = enderecos;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     public int getTelefone() {

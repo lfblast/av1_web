@@ -22,10 +22,10 @@
                     <tr>
                         <td>Endereços:</td>
                         <td>
-                            <select id="endereco" name="enderecoId">
+                            <select id="endereco" name="endereco">
                                 <option	value="-1">- Endereços -</option>
-                                <c:forEach items="${enderecos}" var="endereco">
-                                    <option value="${endereco.id}">${endereco.rua} - ${endereco.numero} - ${endereco.referencia}</option>
+                                <c:forEach items="${enderecos}" var="end">
+                                    <option value="${end.id}">${end.rua} - ${end.numero} - ${end.referencia}</option>
                                 </c:forEach>
                             </select>
                         </td>
@@ -46,7 +46,16 @@
                         <td>Taxa de Entrega:</td>
                         <td><input type="text" name="taxaEntrega" size="8" maxlength="8"/></td>
                     </tr>
+                    <tr>
+                        <td>Produtos:</td>
+                        <td>
+                            <c:forEach items="${produtos}" var="produto">
+                                <input type="checkbox" name="produtos" value="${produto.id}"/>${produto.codigo} - ${produto.nome} - ${produto.preco} <br/>
+                            </c:forEach>
+                        </td>
+                    </tr>
                 </table>
+                <input type="hidden" name="cliente" value="${cliente.id}"/>
                 <input type="submit" value="Enviar">
             </form>
         </div>

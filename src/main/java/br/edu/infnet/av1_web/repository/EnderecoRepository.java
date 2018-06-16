@@ -13,7 +13,7 @@ public class EnderecoRepository extends GenericRepository<Endereco> {
     }
 
     @Override
-    public List<Endereco> Listar() {
+    public List<Endereco> listar() {
         TypedQuery<Endereco> query = manager.createQuery("select p from Endereco p", Endereco.class);
         return query.getResultList();
     }
