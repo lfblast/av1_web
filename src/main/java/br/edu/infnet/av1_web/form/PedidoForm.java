@@ -40,8 +40,8 @@ public class PedidoForm {
     private String entrega;
     private String taxaEntrega;
     private String[] produtos;
-    private List<String> quantidadesProdutos;
-    private List<String> obsProdutos;
+    private List<String> quantidadesProdutos = new ArrayList<>();
+    private List<String> obsProdutos = new ArrayList<>();
     
     public static PedidoForm fromRequest(HttpServletRequest request) {
         
@@ -54,6 +54,14 @@ public class PedidoForm {
         form.setEntrega(request.getParameter("entrega"));
         form.setTaxaEntrega(request.getParameter("taxaEntrega"));
         form.setProdutos(request.getParameterValues("produtos"));
+        
+        for(String prod : form.getProdutos()) {
+            form.getQuantidadesProdutos().add(request.getParameter("quantidade"+prod));
+        }
+        
+        for(String prod : form.getProdutos()) {
+            form.getObsProdutos().add(request.getParameter("obs"+prod));
+        }
         
         return form;
     }
