@@ -1,6 +1,10 @@
 package br.edu.infnet.av1_web.view;
 
+import br.edu.infnet.av1_web.model.Pedido;
+import br.edu.infnet.av1_web.service.PedidoService;
+import br.edu.infnet.av1_web.util.JpaUtil;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +25,11 @@ public class ListaPedidosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        PedidoService pedidoService = new PedidoService(JpaUtil.getEntityManager());
+        
+        List<Pedido> pedidos = pedidoService.getListaPedidos();
+        
+        request.setAttribute("pedidos", pedidos);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/lista-pedidos.jsp");
         dispatcher.forward(request, response);
     }

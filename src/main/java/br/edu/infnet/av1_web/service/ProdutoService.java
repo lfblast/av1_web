@@ -18,4 +18,8 @@ public class ProdutoService {
         List<Produto> produtos = prodRep.listar();
         return produtos;
     }
+    
+    public Produto getProdutoById(long id) {
+        return prodRep.selecionar(Produto.class, id);
+    }
 }

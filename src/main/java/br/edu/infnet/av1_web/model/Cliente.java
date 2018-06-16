@@ -10,10 +10,10 @@ import javax.persistence.OneToMany;
 @Entity
 public class Cliente extends Pessoa {
     
-    @OneToMany(mappedBy="cliente", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="cliente", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Endereco> enderecos;
     
-    @OneToMany(mappedBy="cliente", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="cliente", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Pedido> pedidos;
     
     @Column(name="telefone")

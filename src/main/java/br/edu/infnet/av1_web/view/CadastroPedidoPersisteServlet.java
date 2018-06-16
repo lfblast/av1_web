@@ -1,6 +1,10 @@
 package br.edu.infnet.av1_web.view;
 
+import br.edu.infnet.av1_web.form.PedidoForm;
+import br.edu.infnet.av1_web.service.PedidoService;
+import br.edu.infnet.av1_web.util.JpaUtil;
 import java.io.IOException;
+import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +25,14 @@ public class CadastroPedidoPersisteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
+        EntityManager em = JpaUtil.getEntityManager();
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/lista-pedidos.jsp");
+        PedidoService service = new PedidoService(em);
+        PedidoForm form = PedidoForm.fromRequest(request);
+        
+        service.incluirPedido(form.toPedido(em));
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-pedidos");
         dispatcher.forward(request, response);
     }
 }

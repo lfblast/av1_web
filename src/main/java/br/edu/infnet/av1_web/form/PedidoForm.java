@@ -1,10 +1,13 @@
 package br.edu.infnet.av1_web.form;
 
+import br.edu.infnet.av1_web.exception.ServiceException;
 import br.edu.infnet.av1_web.model.Cliente;
+import br.edu.infnet.av1_web.model.Endereco;
 import br.edu.infnet.av1_web.model.Pedido;
 import br.edu.infnet.av1_web.model.Produto;
 import br.edu.infnet.av1_web.model.ProdutoPedido;
 import br.edu.infnet.av1_web.model.StatusPedido;
+import br.edu.infnet.av1_web.service.ProdutoService;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -16,6 +19,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -52,19 +56,27 @@ public class PedidoForm {
         return form;
     }
     
-    public Pedido toPedido() {
+    private void valida() throws ServiceException {
+        
+    } 
+    
+    public Pedido toPedido(EntityManager em) {
         
         Pedido pedido = new Pedido();
         Cliente cliente = new Cliente();
         ProdutoPedido produtoPedido;
         Produto produto;
         List<ProdutoPedido> produtos = new ArrayList<ProdutoPedido>();
+        Endereco end = new Endereco();
+        ProdutoService prodService = new ProdutoService(em);
         
         cliente.setId(new Long(this.getCliente()));
         pedido.setCliente(cliente);
         pedido.setData(LocalDate.now());
         pedido.setHora(LocalTime.now());
         pedido.setStatus(StatusPedido.AGUARDANDO_CONFIRM_PAGAMENTO);
+        end.setId(new Long(this.getEndereco()));
+        pedido.setEndereco(end);
         if(this.getEntrega() != null) {
             pedido.setEntrega(true);
         }
@@ -79,16 +91,19 @@ public class PedidoForm {
         } catch (ParseException ex) {
             Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        double preco = 0.00;
         for(String prod : this.produtos) {
+            
             produtoPedido = new ProdutoPedido();
-            produto = new Produto();
-            produto.setId(new Long(prod));
+            produto = prodService.getProdutoById(new Long(prod));
             produtoPedido.setObs("Obs Padrão");
             produtoPedido.setProduto(produto);
             produtoPedido.setQuantidade(1);
+            preco += produto.getPreco().doubleValue();
+            produtoPedido.setPedido(pedido);
             produtos.add(produtoPedido);
         }
+        pedido.setValor(new BigDecimal(preco));        
         pedido.setProdutos(produtos);
         
         return pedido;
