@@ -11,29 +11,42 @@
         <div>
             <a href="cadastro-pedido-cliente" title="Incluir Pedido">Incluir Pedido</a>
         </div>
-    <c:if test = "${pedidos != null}">
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Endereço</th>
-                        <th>Entrega</th>
-                        <th>Taxa de Entrega</th>
-                        <th>Troco</th>
-                        <th>Valor</th>
-                        <th>Data/hora</th>
-                        <th>Status</th>
-                    </tr>
-                <c:forEach items="${pedidos}" var="pedido">
-                    <tr>
-                        <td>${pedido.id}</td>
-                        <td>${pedido.endereco.rua}</td>
-                    </tr>
-                </c:forEach>
-                </thead> 
-            </table>
-        </div>
-    </c:if>
-</body>
+        <c:if test = "${pedidos.size() > 0}">
+            <div>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Endereço</th>
+                            <th>Entrega</th>
+                            <th>Taxa de Entrega</th>
+                            <th>Troco</th>
+                            <th>Valor</th>
+                            <th>Data/hora</th>
+                            <th>Status</th>
+                        </tr>
+                        <c:forEach items="${pedidos}" var="pedido">
+                            <tr>
+                                <td>${pedido.id}</td>
+                                <td>${pedido.endereco.rua}</td>
+                                <c:choose>
+                                    <c:when test="${pedido.entrega}">
+                                        <td>SIM</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>NÃO</td>
+                                    </c:otherwise>
+                                </c:choose>                                                        
+                                <td>${pedido.taxaEntrega}</td>
+                                <td>${pedido.troco}</td>
+                                <td>${pedido.valor}</td>
+                                <td>${pedido.data} - ${pedido.hora}</td>
+                                <td>${pedido.status}</td>
+                            </tr>
+                        </c:forEach>
+                    </thead> 
+                </table>
+            </div>
+        </c:if>
+    </body>
 </html>

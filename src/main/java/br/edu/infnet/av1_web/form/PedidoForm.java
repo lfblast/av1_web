@@ -15,8 +15,10 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -40,10 +42,12 @@ public class PedidoForm {
     private String entrega;
     private String taxaEntrega;
     private String[] produtos;
-    private List<String> quantidadesProdutos = new ArrayList<>();
-    private List<String> obsProdutos = new ArrayList<>();
+    private Map<Long, Integer> quantidadesProdutos = new HashMap<>();
+    private Map<Long, String> obsProdutos = new HashMap<>();
     
-    public static PedidoForm fromRequest(HttpServletRequest request) {
+    public static PedidoForm fromRequest(HttpServletRequest request) throws ServiceException {
+        
+        PedidoFormValidacao.valida(request);
         
         PedidoForm form = new PedidoForm();
         
@@ -56,32 +60,28 @@ public class PedidoForm {
         form.setProdutos(request.getParameterValues("produtos"));
         
         for(String prod : form.getProdutos()) {
-            form.getQuantidadesProdutos().add(request.getParameter("quantidade"+prod));
+            form.getQuantidadesProdutos().put(new Long(prod), new Integer(request.getParameter("quantidade"+prod)));
         }
         
         for(String prod : form.getProdutos()) {
-            form.getObsProdutos().add(request.getParameter("obs"+prod));
+            form.getObsProdutos().put(new Long(prod), request.getParameter("obs"+prod));
         }
         
         return form;
     }
     
-    private void valida() throws ServiceException {
-        
-    } 
-    
     public Pedido toPedido(EntityManager em) {
         
         Pedido pedido = new Pedido();
-        Cliente cliente = new Cliente();
+        Cliente cli = new Cliente();
         ProdutoPedido produtoPedido;
         Produto produto;
-        List<ProdutoPedido> produtos = new ArrayList<ProdutoPedido>();
+        List<ProdutoPedido> produtosPedidos = new ArrayList<>();
         Endereco end = new Endereco();
         ProdutoService prodService = new ProdutoService(em);
         
-        cliente.setId(new Long(this.getCliente()));
-        pedido.setCliente(cliente);
+        cli.setId(new Long(this.getCliente()));
+        pedido.setCliente(cli);
         pedido.setData(LocalDate.now());
         pedido.setHora(LocalTime.now());
         pedido.setStatus(StatusPedido.AGUARDANDO_CONFIRM_PAGAMENTO);
@@ -106,15 +106,16 @@ public class PedidoForm {
             
             produtoPedido = new ProdutoPedido();
             produto = prodService.getProdutoById(new Long(prod));
-            produtoPedido.setObs("Obs Padrão");
+            produtoPedido.setObs(obsProdutos.get(produto.getId()));
             produtoPedido.setProduto(produto);
-            produtoPedido.setQuantidade(1);
-            preco += produto.getPreco().doubleValue();
+            produtoPedido.setQuantidade(quantidadesProdutos.get(produto.getId()));
+            preco += (produto.getPreco().doubleValue() * produtoPedido.getQuantidade());
             produtoPedido.setPedido(pedido);
-            produtos.add(produtoPedido);
+            produtosPedidos.add(produtoPedido);
         }
+        preco = preco - pedido.getDesconto().longValue();
         pedido.setValor(new BigDecimal(preco));        
-        pedido.setProdutos(produtos);
+        pedido.setProdutos(produtosPedidos);
         
         return pedido;
     }
@@ -175,19 +176,19 @@ public class PedidoForm {
         this.produtos = produtos;
     }
 
-    public List<String> getQuantidadesProdutos() {
+    public Map<Long, Integer> getQuantidadesProdutos() {
         return quantidadesProdutos;
     }
 
-    public void setQuantidadesProdutos(List<String> quantidadesProdutos) {
+    public void setQuantidadesProdutos(Map<Long, Integer> quantidadesProdutos) {
         this.quantidadesProdutos = quantidadesProdutos;
     }
 
-    public List<String> getObsProdutos() {
+    public Map<Long, String> getObsProdutos() {
         return obsProdutos;
     }
 
-    public void setObsProdutos(List<String> obsProdutos) {
+    public void setObsProdutos(Map<Long, String> obsProdutos) {
         this.obsProdutos = obsProdutos;
     }
 }

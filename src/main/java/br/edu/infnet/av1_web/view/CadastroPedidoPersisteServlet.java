@@ -1,9 +1,12 @@
 package br.edu.infnet.av1_web.view;
 
+import br.edu.infnet.av1_web.exception.ServiceException;
 import br.edu.infnet.av1_web.form.PedidoForm;
 import br.edu.infnet.av1_web.service.PedidoService;
 import br.edu.infnet.av1_web.util.JpaUtil;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,7 +30,12 @@ public class CadastroPedidoPersisteServlet extends HttpServlet {
         
         EntityManager em = JpaUtil.getEntityManager();        
         PedidoService service = new PedidoService(em);
-        PedidoForm form = PedidoForm.fromRequest(request);
+        PedidoForm form = null;
+        try {
+            form = PedidoForm.fromRequest(request);
+        } catch (ServiceException ex) {
+            Logger.getLogger(CadastroPedidoPersisteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         service.incluirPedido(form.toPedido(em));
         

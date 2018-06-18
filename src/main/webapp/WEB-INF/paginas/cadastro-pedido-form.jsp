@@ -10,11 +10,10 @@
         <h1>Cadastro de Pedido:</h1>        
         <div>
             <a href="cadastro-pedido-cliente">Voltar</a>
-        </div>                
-
+        </div>
         <div>
             <form action="cadastro-pedido-persiste" method="post">
-                <table class="table_detais">
+                <table>
                     <tr>
                         <td>Cliente:</td>
                         <td>${cliente.nome} - tel: ${cliente.telefone}</td>
@@ -48,15 +47,30 @@
                     </tr>
                     <tr>
                         <td>Produtos:</td>
-                        <td>
-                            <c:forEach items="${produtos}" var="produto">
-                                <input type="checkbox" name="produtos" value="${produto.id}"/>${produto.codigo} - ${produto.nome} - ${produto.preco} 
-                                &nbsp;&nbsp;&nbsp;
-                                Quant: <input type="text" name="quantidade${produto.id}" size="2" maxlength="2"/>
-                                Obs: <input type="text" name="obs${produto.id}" size="80" maxlength="80"/>
-                                <br/>
-                            </c:forEach>
-                        </td>
+                        <c:choose>
+                            <c:when test="${produtos.size() > 0}">
+                                <td>
+                                    <table border="1">
+                                        <c:forEach items="${produtos}" var="produto">
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" name="produtos" value="${produto.id}"/>${produto.codigo} - ${produto.nome} - ${produto.preco}
+                                                </td>
+                                                <td>
+                                                    Quant: <input type="text" name="quantidade${produto.id}" size="2" maxlength="2"/>
+                                                </td>
+                                                <td>
+                                                    Obs: <input type="text" name="obs${produto.id}" size="60" maxlength="80"/>
+                                                </td>
+                                            </tr>                                
+                                        </c:forEach>
+                                    </table>
+                                </td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>Não há produtos cadastrados!</td>
+                            </c:otherwise>
+                        </c:choose>
                     </tr>
                 </table>
                 <input type="hidden" name="cliente" value="${cliente.id}"/>

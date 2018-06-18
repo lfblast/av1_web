@@ -1,5 +1,7 @@
 package br.edu.infnet.av1_web.view;
 
+import br.edu.infnet.av1_web.exception.ServiceException;
+import br.edu.infnet.av1_web.form.ClientePedidoFormValidacao;
 import br.edu.infnet.av1_web.model.Cliente;
 import br.edu.infnet.av1_web.model.Produto;
 import br.edu.infnet.av1_web.service.ClienteService;
@@ -27,6 +29,15 @@ public class CadastroPedidoFormServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        try {
+            ClientePedidoFormValidacao.valida(request);
+        } 
+        catch (ServiceException ex) {
+            request.setAttribute("mensagem", ex.getMessage());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/erro.jsp");
+            dispatcher.forward(request, response);
+        }
         
         long clienteId = new Long(request.getParameter("clienteId"));
         
