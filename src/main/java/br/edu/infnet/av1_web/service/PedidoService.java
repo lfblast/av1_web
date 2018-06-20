@@ -24,4 +24,15 @@ public class PedidoService {
         List<Pedido> pedidos = pedRep.listar();
         return pedidos;
     }
+    
+    public Pedido getPedidoById(long id) {
+        Pedido pedido = pedRep.selecionar(Pedido.class, id);
+        return pedido;
+    }
+    
+    public void excluirPedido(Pedido pedido) {
+        pedRep.beginTransatcion();
+        pedRep.excluir(pedido);
+        pedRep.commitTransaction();
+    }
 }

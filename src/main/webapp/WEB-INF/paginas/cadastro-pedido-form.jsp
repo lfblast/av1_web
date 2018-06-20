@@ -7,7 +7,7 @@
         <title>Av1_web</title>
     </head>
     <body>
-        <h1>Cadastro de Pedido:</h1>        
+        <h1>Cadastro de Pedido:</h1>
         <div>
             <a href="cadastro-pedido-cliente">Voltar</a>
         </div>

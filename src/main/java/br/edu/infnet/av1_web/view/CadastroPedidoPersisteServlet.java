@@ -1,12 +1,10 @@
 package br.edu.infnet.av1_web.view;
 
 import br.edu.infnet.av1_web.exception.ServiceException;
-import br.edu.infnet.av1_web.form.PedidoForm;
+import br.edu.infnet.av1_web.view.form.PedidoForm;
 import br.edu.infnet.av1_web.service.PedidoService;
 import br.edu.infnet.av1_web.util.JpaUtil;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,8 +31,11 @@ public class CadastroPedidoPersisteServlet extends HttpServlet {
         PedidoForm form = null;
         try {
             form = PedidoForm.fromRequest(request);
-        } catch (ServiceException ex) {
-            Logger.getLogger(CadastroPedidoPersisteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (ServiceException ex) {
+            request.setAttribute("mensagem", ex.getMessage());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/erro.jsp");
+            dispatcher.forward(request, response);
         }
         
         service.incluirPedido(form.toPedido(em));

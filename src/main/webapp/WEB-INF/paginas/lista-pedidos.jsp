@@ -24,6 +24,7 @@
                             <th>Valor</th>
                             <th>Data/hora</th>
                             <th>Status</th>
+                            <th>###</th>
                         </tr>
                         <c:forEach items="${pedidos}" var="pedido">
                             <tr>
@@ -42,6 +43,7 @@
                                 <td>${pedido.valor}</td>
                                 <td>${pedido.data} - ${pedido.hora}</td>
                                 <td>${pedido.status}</td>
+                                <td><a href="detalhes-pedido?pedido=${pedido.id}">Ver Detalhes</a></td>
                             </tr>
                         </c:forEach>
                     </thead> 

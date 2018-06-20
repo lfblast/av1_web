@@ -1,7 +1,10 @@
+/home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/RemoverPedidoPersisteServlet.java
+/home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/form/ClientePedidoFormValidacao.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/model/Cliente.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/model/Pedido.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/repository/ClienteRepository.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/model/Funcionario.java
+/home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/form/PedidoForm.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/repository/PessoaRepository.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/run/PreparaBanco.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/repository/ProdutoRepository.java
@@ -13,11 +16,11 @@
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/ListaPedidosServlet.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/repository/PedidoRepository.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/model/Ingrediente.java
+/home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/form/PedidoFormValidacao.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/repository/EnderecoRepository.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/CadastroPedidoClienteServlet.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/util/JpaUtil.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/model/ProdutoPedido.java
-/home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/form/PedidoForm.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/model/StatusPedido.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/repository/ProdutoPedidoRepository.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/CadastroPedidoPersisteServlet.java
@@ -25,6 +28,7 @@
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/repository/FuncionarioRepository.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/repository/GenericRepository.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/repository/CategoriaRepository.java
+/home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/DetalhesPedidoServlet.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/model/Categoria.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/service/ClienteService.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/repository/IngredienteRepository.java

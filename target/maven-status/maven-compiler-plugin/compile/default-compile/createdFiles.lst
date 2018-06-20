@@ -16,7 +16,6 @@ br/edu/infnet/av1_web/repository/PessoaRepository.class
 br/edu/infnet/av1_web/repository/ClienteRepository.class
 br/edu/infnet/av1_web/model/Pedido.class
 br/edu/infnet/av1_web/exception/ServiceException.class
-br/edu/infnet/av1_web/form/PedidoForm.class
 br/edu/infnet/av1_web/repository/IngredienteRepository.class
 br/edu/infnet/av1_web/model/StatusPedido.class
 br/edu/infnet/av1_web/view/ListaPedidosServlet.class

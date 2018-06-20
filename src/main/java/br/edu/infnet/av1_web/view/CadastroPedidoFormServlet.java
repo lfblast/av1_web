@@ -1,7 +1,7 @@
 package br.edu.infnet.av1_web.view;
 
 import br.edu.infnet.av1_web.exception.ServiceException;
-import br.edu.infnet.av1_web.form.ClientePedidoFormValidacao;
+import br.edu.infnet.av1_web.view.form.ClientePedidoFormValidacao;
 import br.edu.infnet.av1_web.model.Cliente;
 import br.edu.infnet.av1_web.model.Produto;
 import br.edu.infnet.av1_web.service.ClienteService;
