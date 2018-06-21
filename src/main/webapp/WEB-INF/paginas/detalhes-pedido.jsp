@@ -95,6 +95,10 @@
                             </table>
                         </td>
                     </tr>
+                    <tr>
+                        <td>Valor:</td>
+                        <td>${pedido.valor}</td>
+                    </tr>
                 </table>
                 <input type="hidden" name="cliente" value="${cliente.id}"/>
                 <input type="submit" value="Alterar">

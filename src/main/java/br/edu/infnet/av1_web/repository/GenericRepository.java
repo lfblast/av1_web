@@ -16,7 +16,7 @@ public abstract class GenericRepository<T> {
     }
     
     public void commitTransaction() {
-        manager.getTransaction().commit();
+        manager.getTransaction().commit();        
     }
     
     public void closeEntityManager() {
@@ -28,10 +28,10 @@ public abstract class GenericRepository<T> {
     }
     
     public void alterar(T t) {
-        manager.merge(t);        
+        manager.persist(t);
     }
     
-    public void excluir(T t) {
+    public void excluir(T t) {        
         manager.remove(t);
     }
     
@@ -40,4 +40,12 @@ public abstract class GenericRepository<T> {
     }
     
     public abstract List<T> listar();
+
+    public EntityManager getManager() {
+        return manager;
+    }
+
+    public void setManager(EntityManager manager) {
+        this.manager = manager;
+    }
 }

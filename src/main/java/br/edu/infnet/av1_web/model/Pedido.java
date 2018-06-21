@@ -27,7 +27,7 @@ public class Pedido {
     @Column(name="pedido_id", nullable=false, unique=true, length=11)
     private long id;
     
-    @OneToMany(mappedBy="pedido", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="pedido", fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
     private List<ProdutoPedido> produtos;
     
     @ManyToOne
