@@ -41,6 +41,7 @@ public class PedidoForm {
     private String troco;
     private String entrega;
     private String taxaEntrega;
+    private String status;
     private String[] produtos;
     private Map<Long, Integer> quantidadesProdutos = new HashMap<>();
     private Map<Long, String> obsProdutos = new HashMap<>();
@@ -58,6 +59,7 @@ public class PedidoForm {
         form.setEntrega(request.getParameter("entrega"));
         form.setTaxaEntrega(request.getParameter("taxaEntrega"));
         form.setProdutos(request.getParameterValues("produtos"));
+        form.setStatus(request.getParameter("status"));
         
         for(String prod : form.getProdutos()) {
             form.getQuantidadesProdutos().put(new Long(prod), new Integer(request.getParameter("quantidade"+prod)));
@@ -84,7 +86,7 @@ public class PedidoForm {
         pedido.setCliente(cli);
         pedido.setData(LocalDate.now());
         pedido.setHora(LocalTime.now());
-        pedido.setStatus(StatusPedido.AGUARDANDO_CONFIRM_PAGAMENTO);
+        pedido.setStatus(StatusPedido.fromInt(new Integer(this.getStatus())));
         end.setId(new Long(this.getEndereco()));
         pedido.setEndereco(end);
         if(this.getEntrega() != null) {
@@ -134,6 +136,34 @@ public class PedidoForm {
         pedido.setProdutos(produtosPedidos);
         
         return pedido;
+    }
+    
+    public Pedido toPedidoAlterado(Pedido pedidoJaCadastrado, Pedido pedidoForm) {
+        
+        pedidoJaCadastrado.setDesconto(pedidoForm.getDesconto());
+        pedidoJaCadastrado.setEndereco(pedidoForm.getEndereco());
+        pedidoJaCadastrado.setEntrega(pedidoForm.isEntrega());
+//        pedidoJaCadastrado.setProdutos(pedidoForm.getProdutos());
+        pedidoJaCadastrado.setStatus(pedidoForm.getStatus());
+        pedidoJaCadastrado.setTaxaEntrega(pedidoForm.getTaxaEntrega());
+        pedidoJaCadastrado.setTroco(pedidoForm.getTroco());
+        pedidoJaCadastrado.setValor(pedidoForm.getValor());
+        
+        List<ProdutoPedido> produtosPedidos = new ArrayList<>();
+        for(ProdutoPedido prodPed : pedidoJaCadastrado.getProdutos()) {
+            produtosPedidos.add(prodPed);
+        }
+        
+        for(ProdutoPedido prodPed : produtosPedidos) {
+            pedidoJaCadastrado.getProdutos().remove(prodPed);
+        }
+        
+        for(ProdutoPedido prodPed : pedidoForm.getProdutos()) {
+            prodPed.setPedido(pedidoJaCadastrado);
+            pedidoJaCadastrado.getProdutos().add(prodPed);
+        }
+        
+        return pedidoJaCadastrado;
     }
 
     public String getCliente() {
@@ -190,6 +220,14 @@ public class PedidoForm {
 
     public void setProdutos(String[] produtos) {
         this.produtos = produtos;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Map<Long, Integer> getQuantidadesProdutos() {

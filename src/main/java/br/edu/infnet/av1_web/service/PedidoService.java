@@ -47,4 +47,10 @@ public class PedidoService {
         pedRep.excluir(pedido);
         pedRep.commitTransaction();
     }
+    
+    public void alterarPedido(Pedido pedido) {
+        pedRep.beginTransatcion();
+        pedRep.alterar(pedido);
+        pedRep.commitTransaction();
+    }
 }

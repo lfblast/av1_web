@@ -1,12 +1,10 @@
 package br.edu.infnet.av1_web.model;
 
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,9 +18,6 @@ public class Ingrediente {
     
     @Column(name="nome", nullable=false)
     private String nome;
-    
-    @ManyToMany(mappedBy = "ingredientes")
-    private List<Produto> produtos;
 
     public long getId() {
         return id;
@@ -38,13 +33,5 @@ public class Ingrediente {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
     }
 }

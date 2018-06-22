@@ -74,6 +74,7 @@
                     </tr>
                 </table>
                 <input type="hidden" name="cliente" value="${cliente.id}"/>
+                <input type="hidden" name="status" value="1"/>
                 <input type="submit" value="Enviar">
             </form>
         </div>

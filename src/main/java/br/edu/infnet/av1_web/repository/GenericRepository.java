@@ -28,7 +28,7 @@ public abstract class GenericRepository<T> {
     }
     
     public void alterar(T t) {
-        manager.persist(t);
+        manager.merge(t);
     }
     
     public void excluir(T t) {        

@@ -4,14 +4,20 @@ import br.edu.infnet.av1_web.model.Categoria;
 import br.edu.infnet.av1_web.model.Cliente;
 import br.edu.infnet.av1_web.model.Endereco;
 import br.edu.infnet.av1_web.model.Ingrediente;
+import br.edu.infnet.av1_web.model.Pedido;
 import br.edu.infnet.av1_web.model.Produto;
+import br.edu.infnet.av1_web.model.ProdutoPedido;
+import br.edu.infnet.av1_web.model.StatusPedido;
 import br.edu.infnet.av1_web.repository.CategoriaRepository;
 import br.edu.infnet.av1_web.repository.ClienteRepository;
 import br.edu.infnet.av1_web.repository.EnderecoRepository;
 import br.edu.infnet.av1_web.repository.IngredienteRepository;
+import br.edu.infnet.av1_web.repository.PedidoRepository;
 import br.edu.infnet.av1_web.repository.ProdutoRepository;
 import br.edu.infnet.av1_web.util.JpaUtil;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -27,6 +33,10 @@ public class PreparaBanco {
         insereProdutos();
         insereClientes();
         insereEnderecos();
+        
+        //Testes Pedido
+//        inserePedido();
+//        removerPedido();
         
         JpaUtil.closeEntityManagerFactory();
     }
@@ -227,5 +237,61 @@ public class PreparaBanco {
             endRep.incluir(end);
             endRep.commitTransaction();
         }
+    }
+    
+    private static Produto selecionaProduto(long id) {
+        
+        ProdutoRepository prodRep = new ProdutoRepository(MANAGER);
+        return prodRep.selecionar(Produto.class, id);
+    }
+    
+    private static Pedido selecionaPedido(long id) {
+        
+        PedidoRepository pedidoRep = new PedidoRepository(MANAGER);
+        return pedidoRep.selecionar(Pedido.class, id);
+    }
+    
+    private static void inserePedido() {
+        PedidoRepository pedRep = new PedidoRepository(MANAGER);
+        
+        Pedido pedido = new Pedido();
+        ProdutoPedido prodPed = new ProdutoPedido();
+        List<ProdutoPedido> produtos = new ArrayList<>();
+        
+        prodPed.setObs("Teste");
+        prodPed.setProduto(selecionaProduto(1));
+        prodPed.setQuantidade(1);
+        prodPed.setPedido(pedido);
+        
+        produtos.add(prodPed);
+        
+        pedido.setCliente(selecionaCliente(1));
+        pedido.setData(LocalDate.now());
+        pedido.setDesconto(new BigDecimal(5));
+        System.out.println("---------------------------------------------------------- CLIENTE: " + pedido.getCliente().getId());
+        List<Endereco> enderecos = pedido.getCliente().getEnderecos();
+        System.out.println("---------------------------------------------------------- TAMANHO: " + enderecos.size());
+        pedido.setEndereco(enderecos.get(1));
+        pedido.setEntrega(true);
+        pedido.setHora(LocalTime.now());
+        pedido.setStatus(StatusPedido.AGUARDANDO_CONFIRM_PAGAMENTO);
+        pedido.setTaxaEntrega(new BigDecimal(5));
+        pedido.setTroco(new BigDecimal(5));
+        pedido.setValor(new BigDecimal(5));
+        pedido.setProdutos(produtos);
+        
+        pedRep.beginTransatcion();
+        pedRep.incluir(pedido);
+        pedRep.commitTransaction();
+    }
+    
+    private static void removerPedido() {
+        
+        PedidoRepository pedRep = new PedidoRepository(MANAGER);
+        Pedido pedido = selecionaPedido(1);
+                
+        pedRep.beginTransatcion();
+        pedRep.excluir(pedido);
+        pedRep.commitTransaction();
     }
 }

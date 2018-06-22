@@ -99,8 +99,21 @@
                         <td>Valor:</td>
                         <td>${pedido.valor}</td>
                     </tr>
+                    <tr>
+                        <td>Status:</td>
+                        <td>
+                            <select id="status" name="status">
+                                <option	value="1" <c:if test="${pedido.status.getStatus() == 1}">selected="true"</c:if> >AGUARDANDO_CONFIRM_PAGAMENTO</option>
+                                <option	value="2" <c:if test="${pedido.status.getStatus() == 2}">selected="true"</c:if> >PAGAMENTO_CONFIRMADO</option>
+                                <option	value="3" <c:if test="${pedido.status.getStatus() == 3}">selected="true"</c:if> >ENTREGUE_TRANSPORTADORA</option>
+                                <option	value="4" <c:if test="${pedido.status.getStatus() == 4}">selected="true"</c:if> >EM_TRANSITO</option>
+                                <option	value="5" <c:if test="${pedido.status.getStatus() == 5}">selected="true"</c:if> >ENTREGUE</option>
+                            </select>
+                        </td>
+                    </tr>
                 </table>
-                <input type="hidden" name="cliente" value="${cliente.id}"/>
+                <input type="hidden" name="cliente" value="${pedido.cliente.id}"/>
+                <input type="hidden" name="id" value="${pedido.id}"/>
                 <input type="submit" value="Alterar">
                 <a href="remover-pedido-persiste?pedido=${pedido.id}">Remover</a>
             </form>

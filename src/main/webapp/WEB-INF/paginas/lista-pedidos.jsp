@@ -9,7 +9,8 @@
     <body>
         <h1>Lista de Pedidos:</h1>
         <div>
-            <a href="cadastro-pedido-cliente" title="Incluir Pedido">Incluir Pedido</a>
+            <a href="cadastro-pedido-cliente" title="Incluir Pedido">Incluir Pedido</a> /
+            <a href="index.html" title="Voltar para o Menu">Voltar</a>
         </div>
         <c:choose>
             <c:when test = "${pedidos.size() > 0}">
