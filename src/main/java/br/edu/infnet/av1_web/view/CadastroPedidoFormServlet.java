@@ -49,6 +49,8 @@ public class CadastroPedidoFormServlet extends HttpServlet {
         ProdutoService produtoService = new ProdutoService(em);
         List<Produto> produtos = produtoService.getListaProdutos();
         
+        em.close();
+        
         request.setAttribute("cliente", cliente);
         request.setAttribute("enderecos", cliente.getEnderecos());
         request.setAttribute("produtos", produtos);

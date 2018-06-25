@@ -8,18 +8,18 @@ import javax.persistence.EntityManager;
 
 public class ProdutoService {
 
-    private ProdutoRepository prodRep;
+    private ProdutoRepository rep;
     
     public ProdutoService(EntityManager manager) {
-        prodRep = new ProdutoRepository(manager);
+        rep = new ProdutoRepository(manager);
     }
     
     public List<Produto> getListaProdutos() {
-        List<Produto> produtos = prodRep.listar();
+        List<Produto> produtos = rep.listar();
         return produtos;
     }
     
     public Produto getProdutoById(long id) {
-        return prodRep.selecionar(Produto.class, id);
+        return rep.selecionar(Produto.class, id);
     }
 }

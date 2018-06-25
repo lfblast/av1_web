@@ -44,6 +44,8 @@ public class AlterarPedidoPersisteServlet extends HttpServlet {
                
         service.alterarPedido(form.toPedidoAlterado(PedidoCadastrado, pedido));
         
+        em.close();
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-pedidos");
         dispatcher.forward(request, response);
     }

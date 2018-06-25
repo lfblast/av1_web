@@ -8,19 +8,19 @@ import javax.persistence.EntityManager;
 
 public class ClienteService {
     
-    private ClienteRepository clienteRep;
+    private ClienteRepository rep;
     
     public ClienteService(EntityManager manager) {
-        clienteRep = new ClienteRepository(manager);
+        rep = new ClienteRepository(manager);
     }
     
     public List<Cliente> getListaClientes() {
-        List<Cliente> clientes = clienteRep.listar();
+        List<Cliente> clientes = rep.listar();
         return clientes;
     }
     
     public Cliente getClienteById(long id) {
-        Cliente cliente = clienteRep.selecionar(Cliente.class, id);
+        Cliente cliente = rep.selecionar(Cliente.class, id);
         return cliente;
     }
 }

@@ -32,6 +32,8 @@ public class RemoverPedidoPersisteServlet extends HttpServlet {
         Pedido pedido = pedidoService.getPedidoById(pedidoId);
         pedidoService.excluirPedido(pedido);
         
+        em.close();
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-pedidos");
         dispatcher.forward(request, response);
     }

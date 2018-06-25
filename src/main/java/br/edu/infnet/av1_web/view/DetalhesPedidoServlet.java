@@ -37,6 +37,8 @@ public class DetalhesPedidoServlet extends HttpServlet {
         Pedido pedido = pedidoService.getPedidoById(pedidoId);
         List<Produto> produtos = produtoService.getListaProdutos();
         
+        em.close();
+        
         request.setAttribute("pedido", pedido);
         request.setAttribute("produtos", produtos);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/detalhes-pedido.jsp");

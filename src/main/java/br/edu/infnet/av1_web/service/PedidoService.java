@@ -10,25 +10,25 @@ import javax.persistence.EntityManager;
 
 public class PedidoService {
     
-    private PedidoRepository pedRep;
+    private PedidoRepository rep;
     
     public PedidoService(EntityManager manager) {
-        pedRep = new PedidoRepository(manager);
+        rep = new PedidoRepository(manager);
     }
     
     public void incluirPedido(Pedido pedido) {
-        pedRep.beginTransatcion();
-        pedRep.incluir(pedido);
-        pedRep.commitTransaction();
+        rep.beginTransatcion();
+        rep.incluir(pedido);
+        rep.commitTransaction();
     }
     
     public List<Pedido> getListaPedidos() {
-        List<Pedido> pedidos = pedRep.listar();
+        List<Pedido> pedidos = rep.listar();
         return pedidos;
     }
     
     public Pedido getPedidoById(long id) {
-        Pedido pedido = pedRep.selecionar(Pedido.class, id);
+        Pedido pedido = rep.selecionar(Pedido.class, id);
         return pedido;
     }
     
@@ -43,14 +43,14 @@ public class PedidoService {
             pedido.getProdutos().remove(prodPed);
         }
         
-        pedRep.beginTransatcion();
-        pedRep.excluir(pedido);
-        pedRep.commitTransaction();
+        rep.beginTransatcion();
+        rep.excluir(pedido);
+        rep.commitTransaction();
     }
     
     public void alterarPedido(Pedido pedido) {
-        pedRep.beginTransatcion();
-        pedRep.alterar(pedido);
-        pedRep.commitTransaction();
+        rep.beginTransatcion();
+        rep.alterar(pedido);
+        rep.commitTransaction();
     }
 }

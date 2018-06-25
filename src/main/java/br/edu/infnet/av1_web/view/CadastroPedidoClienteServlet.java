@@ -5,6 +5,7 @@ import br.edu.infnet.av1_web.service.ClienteService;
 import br.edu.infnet.av1_web.util.JpaUtil;
 import java.io.IOException;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,8 +26,12 @@ public class CadastroPedidoClienteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        ClienteService clienteService = new ClienteService(JpaUtil.getEntityManager());
+        EntityManager em = JpaUtil.getEntityManager();        
+        
+        ClienteService clienteService = new ClienteService(em);
         List<Cliente> clientes = clienteService.getListaClientes();
+        
+        em.close();
         
         request.setAttribute("clientes", clientes);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/cadastro-pedido-cliente.jsp");

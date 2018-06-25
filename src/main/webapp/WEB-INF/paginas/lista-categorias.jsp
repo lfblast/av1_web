@@ -9,7 +9,7 @@
     <body>
         <h1>Lista de Categorias:</h1>
         <div>
-            <a href="cadastro-categoria" title="Incluir Categoria">Incluir Categoria</a> /
+            <a href="cadastro-categoria-form" title="Incluir Categoria">Incluir Categoria</a> /
             <a href="index.html" title="Voltar para o Menu">Voltar</a>
         </div>
         <c:choose>

@@ -40,6 +40,8 @@ public class CadastroPedidoPersisteServlet extends HttpServlet {
         
         service.incluirPedido(form.toPedido(em));
         
+        em.close();
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-pedidos");
         dispatcher.forward(request, response);
     }
