@@ -16,38 +16,37 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/alterar-ingrediente-persiste")
 public class AlteraIngredientePersisteServlet extends HttpServlet {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doGet(request, response);
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        EntityManager em = JpaUtil.getEntityManager();        
+
+        EntityManager em = JpaUtil.getEntityManager();
         IngredienteService service = new IngredienteService(em);
         IngredienteForm form = null;
-        
+
         try {
             form = IngredienteForm.fromRequest(request);
-        } 
-        catch (ServiceException ex) {
+
+            Ingrediente ingrediente = form.toIngrediente(em);
+            Ingrediente ingredienteCadastrada = service.getIngredienteById(new Long(request.getParameter("id")));
+
+            service.alterarIngrediente(form.toIngredienteAlterado(ingredienteCadastrada, ingrediente));
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-ingredientes");
+            dispatcher.forward(request, response);
+        } catch (ServiceException ex) {
             request.setAttribute("mensagem", ex.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/erro.jsp");
             dispatcher.forward(request, response);
+        } finally {
+            em.close();
         }
-        
-        Ingrediente ingrediente = form.toIngrediente(em);
-        Ingrediente ingredienteCadastrada = service.getIngredienteById(new Long(request.getParameter("id")));        
-               
-        service.alterarIngrediente(form.toIngredienteAlterado(ingredienteCadastrada, ingrediente));
-        
-        em.close();
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-ingredientes");
-        dispatcher.forward(request, response);
     }
 }

@@ -7,7 +7,7 @@
         <title>Av1_web</title>
     </head>
     <body>
-        <h1>Detalhes da Ingrediente:</h1>        
+        <h1>Detalhes do Ingrediente:</h1>        
         <div>
             <a href="lista-ingredientes">Voltar</a>
         </div>

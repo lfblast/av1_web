@@ -9,7 +9,7 @@
     <body>
         <h1>Cadastro de Produto:</h1>
         <div>
-            <a href="cadastro-produto-cliente">Voltar</a>
+            <a href="lista-produtos">Voltar</a>
         </div>
         <div>
             <form action="cadastro-produto-persiste" method="post">

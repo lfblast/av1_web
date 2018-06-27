@@ -33,16 +33,15 @@ public class RemoverCategoriaPersisteServlet extends HttpServlet {
         Categoria categoria = categoriaService.getCategoriaById(categoriaId);
         try {
             categoriaService.excluirCategoria(categoria);
-        } 
-        catch (ServiceException ex) {
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-categorias");
+            dispatcher.forward(request, response);
+        } catch (ServiceException ex) {
             request.setAttribute("mensagem", ex.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/erro.jsp");
             dispatcher.forward(request, response);
+        } finally {
+            em.close();
         }
-
-        em.close();
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-categorias");
-        dispatcher.forward(request, response);
     }
 }

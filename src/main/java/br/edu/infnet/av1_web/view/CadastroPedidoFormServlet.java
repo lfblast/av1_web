@@ -19,42 +19,41 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/cadastro-pedido-form")
 public class CadastroPedidoFormServlet extends HttpServlet {
-     
+
     private static final long serialVersionUID = 1L;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doGet(request, response);
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        EntityManager em = JpaUtil.getEntityManager();
         
         try {
             ClientePedidoFormValidacao.valida(request);
-        } 
-        catch (ServiceException ex) {
+
+            long clienteId = new Long(request.getParameter("clienteId"));            
+
+            ClienteService clienteService = new ClienteService(em);
+            Cliente cliente = clienteService.getClienteById(clienteId);
+
+            ProdutoService produtoService = new ProdutoService(em);
+            List<Produto> produtos = produtoService.getListaProdutos();
+
+            request.setAttribute("cliente", cliente);
+            request.setAttribute("enderecos", cliente.getEnderecos());
+            request.setAttribute("produtos", produtos);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/cadastro-pedido-form.jsp");
+            dispatcher.forward(request, response);
+        } catch (ServiceException ex) {
             request.setAttribute("mensagem", ex.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/erro.jsp");
             dispatcher.forward(request, response);
+        } finally {
+            em.close();
         }
-        
-        long clienteId = new Long(request.getParameter("clienteId"));
-        
-        EntityManager em = JpaUtil.getEntityManager();
-        
-        ClienteService clienteService = new ClienteService(em);
-        Cliente cliente = clienteService.getClienteById(clienteId);
-        
-        ProdutoService produtoService = new ProdutoService(em);
-        List<Produto> produtos = produtoService.getListaProdutos();
-        
-        em.close();
-        
-        request.setAttribute("cliente", cliente);
-        request.setAttribute("enderecos", cliente.getEnderecos());
-        request.setAttribute("produtos", produtos);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/cadastro-pedido-form.jsp");
-        dispatcher.forward(request, response);
     }
 }

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/remover-ingrediente-persiste")
 public class RemoverIngredientePersisteServlet extends HttpServlet {
-    
+
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -33,16 +33,15 @@ public class RemoverIngredientePersisteServlet extends HttpServlet {
         Ingrediente ingrediente = ingredienteService.getIngredienteById(ingredienteId);
         try {
             ingredienteService.excluirIngrediente(ingrediente);
-        } 
-        catch (ServiceException ex) {
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-ingredientes");
+            dispatcher.forward(request, response);
+        } catch (ServiceException ex) {
             request.setAttribute("mensagem", ex.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/erro.jsp");
             dispatcher.forward(request, response);
+        } finally {
+            em.close();
         }
-
-        em.close();
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-ingredientes");
-        dispatcher.forward(request, response);
     }
 }

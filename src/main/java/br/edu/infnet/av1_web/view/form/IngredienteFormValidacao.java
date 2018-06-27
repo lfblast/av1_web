@@ -8,7 +8,7 @@ public class IngredienteFormValidacao {
     
     public static void valida(HttpServletRequest request) throws ServiceException {
         
-        if(request.getParameter("nome").length() <= 0) {
+        if(request.getParameter("nome").length() < 1) {
             throw new ServiceException("Epecifique um nome para o ingrediente!");
         }
     }

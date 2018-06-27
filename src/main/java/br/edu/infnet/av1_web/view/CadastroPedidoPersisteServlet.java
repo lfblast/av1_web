@@ -15,34 +15,33 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/cadastro-pedido-persiste")
 public class CadastroPedidoPersisteServlet extends HttpServlet {
-    
+
     private static final long serialVersionUID = 1L;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doGet(request, response);
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        EntityManager em = JpaUtil.getEntityManager();        
+
+        EntityManager em = JpaUtil.getEntityManager();
         PedidoService service = new PedidoService(em);
         PedidoForm form = null;
         try {
             form = PedidoForm.fromRequest(request);
-        } 
-        catch (ServiceException ex) {
+
+            service.incluirPedido(form.toPedido(em));
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-pedidos");
+            dispatcher.forward(request, response);
+        } catch (ServiceException ex) {
             request.setAttribute("mensagem", ex.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/erro.jsp");
             dispatcher.forward(request, response);
+        } finally {
+            em.close();
         }
-        
-        service.incluirPedido(form.toPedido(em));
-        
-        em.close();
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-pedidos");
-        dispatcher.forward(request, response);
     }
 }

@@ -16,38 +16,37 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/alterar-categoria-persiste")
 public class AlteraCategoriaPersisteServlet extends HttpServlet {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doGet(request, response);
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        EntityManager em = JpaUtil.getEntityManager();        
+
+        EntityManager em = JpaUtil.getEntityManager();
         CategoriaService service = new CategoriaService(em);
         CategoriaForm form = null;
-        
+
         try {
             form = CategoriaForm.fromRequest(request);
-        } 
-        catch (ServiceException ex) {
+
+            Categoria categoria = form.toCategoria(em);
+            Categoria categoriaCadastrada = service.getCategoriaById(new Long(request.getParameter("id")));
+
+            service.alterarCategoria(form.toCategoriaAlterado(categoriaCadastrada, categoria));
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-categorias");
+            dispatcher.forward(request, response);
+        } catch (ServiceException ex) {
             request.setAttribute("mensagem", ex.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/erro.jsp");
             dispatcher.forward(request, response);
+        } finally {
+            em.close();
         }
-        
-        Categoria categoria = form.toCategoria(em);
-        Categoria categoriaCadastrada = service.getCategoriaById(new Long(request.getParameter("id")));        
-               
-        service.alterarCategoria(form.toCategoriaAlterado(categoriaCadastrada, categoria));
-        
-        em.close();
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-categorias");
-        dispatcher.forward(request, response);
     }
 }

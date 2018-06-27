@@ -16,37 +16,36 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/alterar-pedido-persiste")
 public class AlterarPedidoPersisteServlet extends HttpServlet {
-    
+
     private static final long serialVersionUID = 1L;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doGet(request, response);
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        EntityManager em = JpaUtil.getEntityManager();        
+
+        EntityManager em = JpaUtil.getEntityManager();
         PedidoService service = new PedidoService(em);
         PedidoForm form = null;
         try {
             form = PedidoForm.fromRequest(request);
-        } 
-        catch (ServiceException ex) {
+
+            Pedido pedido = form.toPedido(em);
+            Pedido pedidoCadastrado = service.getPedidoById(new Long(request.getParameter("id")));
+
+            service.alterarPedido(form.toPedidoAlterado(pedidoCadastrado, pedido));
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-pedidos");
+            dispatcher.forward(request, response);
+        } catch (ServiceException ex) {
             request.setAttribute("mensagem", ex.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginas/erro.jsp");
             dispatcher.forward(request, response);
+        } finally {
+            em.close();
         }
-        
-        Pedido pedido = form.toPedido(em);
-        Pedido PedidoCadastrado = service.getPedidoById(new Long(request.getParameter("id")));        
-               
-        service.alterarPedido(form.toPedidoAlterado(PedidoCadastrado, pedido));
-        
-        em.close();
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/lista-pedidos");
-        dispatcher.forward(request, response);
     }
 }
