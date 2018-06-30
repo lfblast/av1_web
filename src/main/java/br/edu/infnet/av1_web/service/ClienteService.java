@@ -2,6 +2,7 @@ package br.edu.infnet.av1_web.service;
 
 import br.edu.infnet.av1_web.exception.ServiceException;
 import br.edu.infnet.av1_web.model.Cliente;
+import br.edu.infnet.av1_web.model.Endereco;
 import br.edu.infnet.av1_web.model.Pedido;
 import br.edu.infnet.av1_web.repository.ClienteRepository;
 import java.util.List;
@@ -27,6 +28,7 @@ public class ClienteService {
     }
     
     public void incluirCliente(Cliente cliente) {
+        
         rep.beginTransatcion();
         rep.incluir(cliente);
         rep.commitTransaction();
@@ -43,12 +45,17 @@ public class ClienteService {
             }
         }
         
+        EnderecoService enderecoService = new EnderecoService(rep.getManager());
+        for(Endereco endereco : cliente.getEnderecos()) {
+            enderecoService.excluirEndereco(endereco);
+        }
+        
         rep.beginTransatcion();
         rep.excluir(cliente);
         rep.commitTransaction();
     }
     
-    public void alterarProduto(Cliente cliente) {
+    public void alterarCliente(Cliente cliente) {
         rep.beginTransatcion();
         rep.alterar(cliente);
         rep.commitTransaction();

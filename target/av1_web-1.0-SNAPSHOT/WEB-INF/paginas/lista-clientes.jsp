@@ -22,6 +22,7 @@
                                 <th>Nome</th>
                                 <th>Telefone</th>
                                 <th>###</th>
+                                <th>###</th>
                             </tr>
                             <c:forEach items="${clientes}" var="cliente">
                                 <tr>
@@ -29,6 +30,7 @@
                                     <td>${cliente.nome}</td>
                                     <td>${cliente.telefone}</td>                                    
                                     <td><a href="detalhes-cliente?cliente=${cliente.id}">Ver Detalhes</a></td>
+                                    <td><a href="cadastro-endereco-form?cliente=${cliente.id}">Incluir Endereço</a></td>
                                 </tr>
                             </c:forEach>
                         </thead> 
