@@ -11,6 +11,7 @@ br/edu/infnet/av1_web/model/Pessoa.class
 br/edu/infnet/av1_web/service/EnderecoService.class
 br/edu/infnet/av1_web/repository/GenericRepository.class
 br/edu/infnet/av1_web/view/form/ProdutoForm.class
+br/edu/infnet/av1_web/run/CriarBancoLimpo.class
 br/edu/infnet/av1_web/view/form/ClientePedidoFormValidacao.class
 br/edu/infnet/av1_web/repository/ProdutoPedidoRepository.class
 br/edu/infnet/av1_web/view/ListaClientesServlet.class
@@ -54,6 +55,7 @@ br/edu/infnet/av1_web/view/RemoverClientePersisteServlet.class
 br/edu/infnet/av1_web/model/Funcionario.class
 br/edu/infnet/av1_web/view/form/IngredienteFormValidacao.class
 br/edu/infnet/av1_web/model/Categoria.class
+br/edu/infnet/av1_web/run/CriarBancoComDados.class
 br/edu/infnet/av1_web/view/CadastroProdutoFormServlet.class
 br/edu/infnet/av1_web/view/RemoverCategoriaPersisteServlet.class
 br/edu/infnet/av1_web/view/CadastroEnderecoFormServlet.class
@@ -65,7 +67,6 @@ br/edu/infnet/av1_web/view/CadastroClienteFormServlet.class
 br/edu/infnet/av1_web/view/RemoverPedidoPersisteServlet.class
 br/edu/infnet/av1_web/repository/IngredienteRepository.class
 br/edu/infnet/av1_web/model/ProdutoPedido.class
-br/edu/infnet/av1_web/run/PreparaBanco.class
 br/edu/infnet/av1_web/repository/FuncionarioRepository.class
 br/edu/infnet/av1_web/view/RemoverEnderecoPersisteServlet.class
 br/edu/infnet/av1_web/repository/CategoriaRepository.class

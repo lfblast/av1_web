@@ -34,6 +34,7 @@ public class DetalhesPedidoServlet extends HttpServlet {
         PedidoService pedidoService = new PedidoService(em);
         ProdutoService produtoService = new ProdutoService(em);
         
+        em.getTransaction().begin();
         Pedido pedido = pedidoService.getPedidoById(pedidoId);
         List<Produto> produtos = produtoService.getListaProdutos();
         

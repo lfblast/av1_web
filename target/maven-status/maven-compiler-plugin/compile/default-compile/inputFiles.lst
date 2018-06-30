@@ -49,11 +49,11 @@
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/AlteraCategoriaPersisteServlet.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/form/IngredienteForm.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/form/EnderecoForm.java
-/home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/run/PreparaBanco.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/AlteraIngredientePersisteServlet.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/RemoverCategoriaPersisteServlet.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/CadastroClienteFormServlet.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/form/ClienteForm.java
+/home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/run/CriarBancoLimpo.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/service/ProdutoService.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/CadastroCategoriaPersisteServlet.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/service/PedidoService.java
@@ -68,6 +68,7 @@
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/form/IngredienteFormValidacao.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/view/form/ProdutoForm.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/model/Produto.java
+/home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/run/CriarBancoComDados.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/repository/FuncionarioRepository.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/repository/GenericRepository.java
 /home/luis/NetBeansProjects/av1_web/src/main/java/br/edu/infnet/av1_web/service/ClienteService.java
